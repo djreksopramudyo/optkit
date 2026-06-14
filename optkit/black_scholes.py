@@ -1,8 +1,8 @@
-"""Black-Scholes-Merton European option pricing.
+# Black-Scholes-Merton European option pricing.
 
-Closed-form pricing for European calls and puts under the
-Black-Scholes-Merton model with a continuous dividend yield.
-"""
+# Closed-form pricing for European calls and puts under the
+# Black-Scholes-Merton model with a continuous dividend yield.
+
 
 import numpy as np
 from scipy.stats import norm
@@ -19,22 +19,22 @@ def _d1_d2(S, K, T, r, sigma, q=0.0):
 
 
 def bsm_price(S, K, T, r, sigma, q=0.0, option="call"):
-    """Price a European option under Black-Scholes-Merton.
+    # Price a European option under Black-Scholes-Merton.
 
-    Parameters
-    ----------
-    S : float       spot price of the underlying
-    K : float       strike price
-    T : float       time to expiry, in years
-    r : float       risk-free rate, continuously compounded (e.g. 0.05)
-    sigma : float   annualised volatility (e.g. 0.20)
-    q : float       continuous dividend yield (default 0.0)
-    option : str    "call" or "put"
+    # Parameters
+    # ----------
+    # S : float       spot price of the underlying
+    # K : float       strike price
+    # T : float       time to expiry, in years
+    # r : float       risk-free rate, continuously compounded (e.g. 0.05)
+    # sigma : float   annualised volatility (e.g. 0.20)
+    # q : float       continuous dividend yield (default 0.0)
+    # option : str    "call" or "put"
 
-    Returns
-    -------
-    float : the option price
-    """
+    # Returns
+    # -------
+    # float : the option price
+
     d1, d2 = _d1_d2(S, K, T, r, sigma, q)
 
     if option == "call":
