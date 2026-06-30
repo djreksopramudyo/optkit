@@ -37,7 +37,7 @@ pytest -v
 ## Roadmap
 
 - [x] BSM European pricer + analytical Greeks (finite-difference validated)
-- [ ] Binomial tree (European + American)
+- [x] Binomial tree (European + American)
 - [ ] Monte Carlo with variance reduction
 - [ ] Implied volatility solver
 - [ ] Volatility smile & surface plots
