@@ -1,3 +1,5 @@
+# Tests for the CRR binomial pricer.
+
 import pytest
 import numpy as np
 from optkit.binomial import binomial_price
@@ -22,14 +24,18 @@ def test_european_put_matches_bsm():
 
 
 def test_american_put_ge_european_put():
-    eur = binomial_price(S, K, T, r, sigma, N=N_CHECK, option="put", american=False)
-    amer = binomial_price(S, K, T, r, sigma, N=N_CHECK, option="put", american=True)
+    eur = binomial_price(S, K, T, r, sigma, N=N_CHECK,
+                         option="put", american=False)
+    amer = binomial_price(S, K, T, r, sigma, N=N_CHECK,
+                          option="put", american=True)
     assert amer >= eur - 1e-8
 
 
 def test_american_call_equals_european_call_no_dividend():
-    eur = binomial_price(S, K, T, r, sigma, N=N_CHECK, option="call", american=False)
-    amer = binomial_price(S, K, T, r, sigma, N=N_CHECK, option="call", american=True)
+    eur = binomial_price(S, K, T, r, sigma, N=N_CHECK,
+                         option="call", american=False)
+    amer = binomial_price(S, K, T, r, sigma, N=N_CHECK,
+                          option="call", american=True)
     assert abs(amer - eur) < TOL
 
 

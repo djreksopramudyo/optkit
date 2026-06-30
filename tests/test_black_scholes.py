@@ -8,7 +8,6 @@ from optkit.black_scholes import (
 
 
 def test_known_textbook_value():
-    # Canonical sanity check: S=K=100, T=1, r=5%, sigma=20%, q=0.
     call = bsm_price(100, 100, 1, 0.05, 0.20, option="call")
     put = bsm_price(100, 100, 1, 0.05, 0.20, option="put")
     assert call == pytest.approx(10.4506, abs=1e-3)
@@ -25,7 +24,6 @@ def test_known_textbook_value():
     ],
 )
 def test_put_call_parity(S, K, T, r, sigma, q):
-    # C - P must equal S*exp(-qT) - K*exp(-rT) for any inputs.
     call = bsm_price(S, K, T, r, sigma, q=q, option="call")
     put = bsm_price(S, K, T, r, sigma, q=q, option="put")
     lhs = call - put
@@ -34,7 +32,6 @@ def test_put_call_parity(S, K, T, r, sigma, q):
 
 
 def test_invalid_option_type():
-    # Anything other than call/put should raise.
     with pytest.raises(ValueError):
         bsm_price(100, 100, 1, 0.05, 0.20, option="banana")
 
@@ -51,7 +48,7 @@ def _price(option=None, **kw):
 @pytest.mark.parametrize("option", ["call", "put"])
 def test_delta_matches_finite_diff(option):
     h = 1e-4
-    fd = ((_price(option, S=BASE["S"] + h) 
+    fd = ((_price(option, S=BASE["S"] + h)
            - _price(option, S=BASE["S"] - h)) / (2 * h))
     assert bsm_delta(**BASE, option=option) == pytest.approx(fd, abs=1e-5)
 
@@ -76,7 +73,7 @@ def test_vega_matches_finite_diff(option):
 @pytest.mark.parametrize("option", ["call", "put"])
 def test_theta_matches_finite_diff(option):
     h = 1e-4
-    fd = (-(_price(option, T=BASE["T"] + h) 
+    fd = (-(_price(option, T=BASE["T"] + h)
             - _price(option, T=BASE["T"] - h)) / (2 * h))
     assert bsm_theta(**BASE, option=option) == pytest.approx(fd, abs=1e-4)
 
@@ -84,6 +81,6 @@ def test_theta_matches_finite_diff(option):
 @pytest.mark.parametrize("option", ["call", "put"])
 def test_rho_matches_finite_diff(option):
     h = 1e-4
-    fd = ((_price(option, r=BASE["r"] + h) 
+    fd = ((_price(option, r=BASE["r"] + h)
            - _price(option, r=BASE["r"] - h)) / (2 * h))
     assert bsm_rho(**BASE, option=option) == pytest.approx(fd, abs=1e-4)
